@@ -1,11 +1,9 @@
 <?php
 setcookie("login","",time()-3600,"/");
-setcookie("id","",time()-3600,"/");
-setcookie("userID","",time()-3600,"/");
+setcookie("employee_name","",time()-3600,"/");
+setcookie("employee_id","",time()-3600,"/");
+setcookie("employee_store","",time()-3600,"/");
 setcookie('reg_date',"",time()-3600,'/');
-setcookie('nickname',"",time()-3600,'/');
-setcookie('gender',"",time()-3600,'/');
-setcookie('bith',"",time()-3600,'/');
 setcookie('info',"",time()-3600,'/');
 unset($_SESSION['pwd']);
 ?>
@@ -19,21 +17,14 @@ unset($_SESSION['pwd']);
         <title>註冊</title>
         <script>
             window.onload = function(){
-                if(('<?=$_SERVER['QUERY_STRING']?>')==='error=userID_repeat')
+                if(('<?=$_SERVER['QUERY_STRING']?>')==='error=employee_id_repeat')
                 {
                     Swal.fire({
                         icon: 'error',
                         title: '此員工編號已被註冊過!',
                     })
                 }
-                else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=email_repeat')
-                {
-                    Swal.fire({
-                        icon: 'error',
-                        title: '此電子郵件已被註冊過!',
-                    })
-                }
-            }
+                            }
         </script>
     </head>
     <body>
@@ -48,12 +39,12 @@ unset($_SESSION['pwd']);
                             
                             <div class="card-body text-center d-flex justify-content-center flex-column ">
                                 <h5>員工資料設定</h5>
-                                <input type="text" name="Ename" class="p-2 mb-3" placeholder="請輸入員工姓名">
-                                <input type="text" name="userID" class="p-2 mb-3" placeholder="請輸入員工編號">
-                                <input type="text" name="branch" class="p-2 mb-3" placeholder="請輸入就職分店名稱">
+                                <input type="text" name="employee_name" class="p-2 mb-3" placeholder="請輸入員工姓名">
+                                <input type="text" name="employee_id" class="p-2 mb-3" placeholder="請輸入員工編號">
+                                <input type="text" name="employee_store" class="p-2 mb-3" placeholder="請輸入就職分店代號">
                                 <h5>首次密碼設定 (6個字元以上)</h5>
-                                <input type="password" id="password" name="password" class="p-2 mb-3" placeholder="請輸入使用者密碼">
-                                <input type="password" id="password2" name="password2" class="p-2 mb-3" placeholder="請確認使用者密碼" autocomplete="Off">
+                                <input type="password" id="employee_pw" name="employee_pw" class="p-2 mb-3" placeholder="請輸入員工密碼">
+                                <input type="password" id="employee_pw2" name="employee_pw" class="p-2 mb-3" placeholder="請確認員工密碼" autocomplete="Off">
                                 <button class="btn btn-primary p-2" name="submit" value="Login" type="submit">註冊</button>
                             </div>
                                 
@@ -70,8 +61,8 @@ unset($_SESSION['pwd']);
 
 <script>
     function validateForm() {
-        var x = document.forms["form"]["password"].value;
-        var y = document.forms["form"]["password2"].value;
+        var x = document.forms["form"]["employee_pw"].value;
+        var y = document.forms["form"]["employee_pw2"].value;
         if(x.length<6){
             Swal.fire({
                 icon: 'warning',
@@ -89,7 +80,7 @@ unset($_SESSION['pwd']);
             return false;
         }
         else {
-            var pwd = document.getElementById('password');
+            var pwd = document.getElementById('employee_pw');
             pwd.value=pwd.value.MD5();
             return true;
         }
