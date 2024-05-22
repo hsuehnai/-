@@ -1,6 +1,6 @@
 目前結果：
 
-![image](https://github.com/hsuehnai/-/assets/162154266/f770bbb7-5093-475f-9dcc-498c4af40de4)
+<img src="https://github.com/hsuehnai/-/assets/162154266/f770bbb7-5093-475f-9dcc-498c4af40de4.png" width=50% height=50%>
 
 /*
 第80行導回homepage，因為還沒有檔案，所以先註解
