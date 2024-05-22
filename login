@@ -18,14 +18,14 @@ unset($_SESSION['pwd']);
         <title>登入</title>
         <script>
             window.onload = function(){
-                if(('<?=$_SERVER['QUERY_STRING']?>')==='error=no_userID')
+                if(('<?=$_SERVER['QUERY_STRING']?>')==='error=no_employee_id')
                 {
                     Swal.fire({
                         icon: 'error',
                         title: '查無此帳號，請檢查有無錯別字或註冊新帳號',
                     })
                 }
-                else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=wrong_pwd')
+                else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=wrong_employee_pw')
                 {
                     Swal.fire({
                         icon: 'error',
@@ -53,9 +53,9 @@ unset($_SESSION['pwd']);
                             </div>
                             
                             <div class="card-body text-center d-flex justify-content-center flex-column ">
-                                <input type="text" name="userID" class="p-2 mb-3" placeholder="員工編號">
-                                <input type="text" name="branch" class="p-2 mb-3" placeholder="分店名稱">
-                                <input type="password" name="password" class="p-2 mb-3"placeholder="使用者密碼">
+                                <input type="text" name="employee_id" class="p-2 mb-3" placeholder="請輸入員工編號">
+                                <input type="text" name="employee_store" class="p-2 mb-3" placeholder="請輸入分店代號">
+                                <input type="password" name="employee_pw" class="p-2 mb-3"placeholder="請輸入員工密碼">
                                 <button class="btn btn-primary p-2" name="submit" value="Login" type="submit">登入</button>
                             </div>
                                 
