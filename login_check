@@ -1,0 +1,44 @@
+<?php
+require_once dirname(__FILE__)."/db_check.php";
+
+session_start();
+if (isset($_GET['submit'])){
+  $query = [
+    'employee_id' => htmlspecialchars($_GET["employee_id"]),
+    'employee_pw' => htmlspecialchars($_GET["employee_pw"])
+  ];
+  $conn = db_check();
+  checkData($query['employee_id'], md5($query['employee_pw'], false), $conn);
+}
+
+function checkData($employee_id, $employee_pw, $conn) {
+  $sql = "SELECT employee_id, employee_id FROM employee WHERE employee_id = '$employee_id'";
+  $result = mysqli_query($conn, $sql);
+  if(mysqli_num_rows($result) == 0) {
+    header("Location: ../login.php?error=no_employee_id");
+  } 
+  else {
+    $sql = "SELECT employee_id, employee_id FROM employee WHERE employee_id = '$employee_id' AND employee_pw = '$employee_pw'";
+    $result = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result) == 0) {
+      header("Location: ../login.php?error=wrong_employee_pw");   
+    }
+    else {
+      $sql = "SELECT * FROM employee WHERE employee_id = '$employee_id' AND employee_pw = '$employee_pw'";
+      $result = mysqli_query($conn, $sql);
+      $row = mysqli_fetch_assoc($result);
+      setcookie('login',true,0,'/');
+      setcookie('id',$row['id'],0,'/');
+      setcookie('email',$row['email'],0,'/');
+      setcookie('username',$row['username'],0,'/');
+      setcookie('reg_date',$row['reg_date'],0,'/');
+      setcookie('nickname',$row['nickname'],0,'/');
+      setcookie('gender',$row['gender'],0,'/');
+      setcookie('bith',$row['bith'],0,'/');
+      setcookie('info',$row['info'],0,'/');
+      $_SESSION['pwd']=$row['password'];
+      header("Location: ../../html/index.php");   
+    }
+  }
+}
+$conn->close();
