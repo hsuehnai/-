@@ -7,7 +7,7 @@ setcookie('nickname',"",time()-3600,'/');
 setcookie('gender',"",time()-3600,'/');
 setcookie('bith',"",time()-3600,'/');
 setcookie('info',"",time()-3600,'/');
-unset($_SESSION['pwd']);
+unset($_SESSION['employee_pw']);
 ?>
 <html>
     <head>
