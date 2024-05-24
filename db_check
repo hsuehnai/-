@@ -1,0 +1,14 @@
+<?php
+function db_check(){
+	$servername = "localhost";
+	$dbname = "term_project";
+	$username = "root";
+	$password = "1234";
+	$comn = new mysqli($servername, $username, $password, $dbname);
+	
+	if ($conn->connect_error) {
+  		die("連線失敗" . $conn->connect_error);
+	}
+	else return $conn;
+}
+?>
