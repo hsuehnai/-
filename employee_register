@@ -30,7 +30,7 @@ unset($_SESSION['pwd']);
     <body>
         <div class="container h-100">
             <div class="row align-items-center h-100">
-                <form id="form" class="form-signin" method="get" action="models/registration_check.php" onsubmit="return validateForm()">
+                <form id="form" class="form-signin" method="get" action="register_check.php" onsubmit="return validateForm()">
                     <div class="col-6 mx-auto">
                         <div class="card h-100 justify-content-center bg-opacity-10">
                             <div class="card-header text-center">
@@ -42,7 +42,7 @@ unset($_SESSION['pwd']);
                                 <input type="text" name="employee_name" class="p-2 mb-3" placeholder="請輸入員工姓名">
                                 <input type="text" name="employee_id" class="p-2 mb-3" placeholder="請輸入員工編號">
                                 <input type="text" name="employee_store" class="p-2 mb-3" placeholder="請輸入就職分店代號">
-                                <h5>首次密碼設定 (6個字元以上)</h5>
+                                <h5>首次密碼設定 (4個字元以上)</h5>
                                 <input type="password" id="employee_pw" name="employee_pw" class="p-2 mb-3" placeholder="請輸入員工密碼">
                                 <input type="password" id="employee_pw2" name="employee_pw" class="p-2 mb-3" placeholder="請確認員工密碼" autocomplete="Off">
                                 <button class="btn btn-primary p-2" name="submit" value="Login" type="submit">註冊</button>
@@ -63,11 +63,11 @@ unset($_SESSION['pwd']);
     function validateForm() {
         var x = document.forms["form"]["employee_pw"].value;
         var y = document.forms["form"]["employee_pw2"].value;
-        if(x.length<6){
+        if(x.length<4){
             Swal.fire({
                 icon: 'warning',
                 title: '密碼長度不足',
-                text: '請輸入6個字元以上的密碼',
+                text: '請輸入4個字元以上的密碼',
             })
             return false;
         }
