@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__)."/db_check.php";
+require_once dirname(__FILE__)."db_check.php";
 
 session_start();
 if (isset($_GET['submit'])){
@@ -15,13 +15,13 @@ function checkData($employee_id, $employee_pw, $conn) {
   $sql = "SELECT employee_id, employee_id FROM employee WHERE employee_id = '$employee_id'";
   $result = mysqli_query($conn, $sql);
   if(mysqli_num_rows($result) == 0) {
-    header("Location: ../login.php?error=no_employee_id");
+    header("Location: login.php?error=no_employee_id");
   } 
   else {
     $sql = "SELECT employee_id, employee_id FROM employee WHERE employee_id = '$employee_id' AND employee_pw = '$employee_pw'";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) == 0) {
-      header("Location: ../login.php?error=wrong_employee_pw");   
+      header("Location: login.php?error=wrong_employee_pw");   
     }
     else {
       $sql = "SELECT * FROM employee WHERE employee_id = '$employee_id' AND employee_pw = '$employee_pw'";
