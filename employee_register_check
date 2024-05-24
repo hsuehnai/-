@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__)."/db_check.php";
+require_once dirname(__FILE__)."db_check.php";
 
 $query = [
   'employee_id' => htmlspecialchars($_GET["employee_id"]),
@@ -20,14 +20,14 @@ function insertData($employee_id, $employee_name, $employee_store, $employee_pw,
     header("Location: ../register.php?error=employee_id_repeat");
   }
   if(mysqli_num_rows($employee_name_result) > 0) {
-    header("Location: ../register.php?error=employee_name_repeat");
+    header("Location: register.php?error=employee_name_repeat");
   }
   if(mysqli_num_rows($employee_id_result) === 0 && mysqli_num_rows($employee_name_result) === 0) {
     $md5pwd=md5($employee_pw);
     $sql = "INSERT INTO employee (employee_id, employee_name, employee_store, employee_pw)
     VALUES ('$employee_id', '$employee_name', $employee_store, '$md5pwd')";
     if (mysqli_query($conn, $sql)) {
-      header("Location: ../login.php?register_success");   
+      header("Location: login.php?register_success");   
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }  
