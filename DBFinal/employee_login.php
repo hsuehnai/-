@@ -64,7 +64,7 @@ unset($_SESSION['pwd']);
                                 <input type="text" name="employee_id" class="p-2 mb-3" placeholder="請輸入員工編號">
                                 <input type="text" name="employee_store" class="p-2 mb-3" placeholder="請輸入分店代號">
                                 <input type="password" name="employee_pw" class="p-2 mb-3"placeholder="請輸入員工密碼">
-                                <button class="btn btn-primary p-2" name="submit" value="Login" type="submit">登入</button>
+                                <button type="button" class="btn btn-primary p-2" name="submit" value="Login" onclick="window.location ='./home.php'" >登入</button>
                             </div>
                                 
                             <div class="card-footer text-center">
