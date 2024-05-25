@@ -45,7 +45,7 @@ unset($_SESSION['pwd']);
                                 <h5>首次密碼設定 (4個字元以上)</h5>
                                 <input type="password" id="employee_pw" name="employee_pw" class="p-2 mb-3" placeholder="請輸入員工密碼">
                                 <input type="password" id="employee_pw2" name="employee_pw" class="p-2 mb-3" placeholder="請確認員工密碼" autocomplete="Off">
-                                <button class="btn btn-primary p-2" name="submit" value="Login" type="submit">註冊</button>
+                                <button type="button" class="btn btn-primary p-2" name="submit" value="Login" onclick="window.location ='./employee_login.php'" >註冊</button>
                             </div>
                                 
                             <div class="card-footer text-center">
