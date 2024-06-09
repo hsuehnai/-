@@ -1,5 +1,5 @@
-/*需要建立商品資料庫:food table-> order_id, food1_num(初始值=0), food2_num(初始值=0), food3_num(初始值=0), food4_num(初始值=0)
-將orders table內的order_num刪掉*/
+// 需要建立商品資料庫:food table-> order_id, food1_num(初始值=0), food2_num(初始值=0), food3_num(初始值=0), food4_num(初始值=0)
+// 將orders table內的order_num刪掉
 <!DOCTYPE html>
 <html lang="en">
 <head>
