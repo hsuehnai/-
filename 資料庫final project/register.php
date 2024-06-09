@@ -89,7 +89,7 @@
                             showCancelButton: false,
                         }).then((result) => {
                             if (result.value) {
-                                window.location = './employee_login.php'
+                                window.location = './login.php'
                             }
                         })
                     }
@@ -189,7 +189,7 @@
                         showCancelButton: false,
                     }).then((result) => {
                         if (result.value) {
-                            window.location = 'home.php'; //回到homepage.php
+                            window.location = './login.php'; 
                         }
                     });
                 }
