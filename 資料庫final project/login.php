@@ -1,3 +1,5 @@
+//注意 客戶登入需要新增資料庫裡的customer table 增加名目：cust_pw
+// 員工登入連上的是原本的home.php，而客戶登入需連上新的客戶主頁（但還沒建
 <!DOCTYPE html>
 <html>
 	<head>
