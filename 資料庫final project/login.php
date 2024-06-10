@@ -16,7 +16,8 @@
                 {
                     Swal.fire({
                         icon: 'error',
-                        title: '查無此員工，請檢查有無錯別字或註冊新帳號',
+                        title: '查無此員工',
+			text: '請檢查有無錯別字或註冊新帳號',
                     })
                 }
                 else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=wrong_employee_pw')
@@ -24,13 +25,15 @@
                     Swal.fire({
                         icon: 'error',
                         title: '員工密碼錯誤',
+			text: '請檢查有無錯別字',
                     })
                 }
 		else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=no_cust_name')
                 {
                     Swal.fire({
                         icon: 'error',
-                        title: '查無此客戶，請檢查有無錯別字或註冊新帳號',
+                        title: '查無此客戶',
+			text: '請檢查有無錯別字或註冊新帳號',
                     })
                 }
                 else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=wrong_cust_pw')
@@ -38,6 +41,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: '客戶密碼錯誤',
+			text: '請檢查有無錯別字',
                     })
                 }
 
@@ -46,6 +50,7 @@
                     Swal.fire({
                         icon: 'success',
                         title: '註冊成功!請重新登入',
+			text: '請重新登入',
                     })
                 }
             }
