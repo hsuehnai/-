@@ -7,22 +7,24 @@ $query = [
   'employee_pw' => htmlspecialchars($_GET["employee_pw"])
 ];
 $conn = db_check();
+if ($conn->connect_error) {
+    die("連接失敗: " . $conn->connect_error);
+}
+
 insertData($query['employee_name'], $query['employee_store'], $query['employee_pw'], $conn);
 
 function insertData($employee_name, $employee_store, $employee_pw, $conn) {
-  $employee_ns_sql = "SELECT employee_name AND employee_store FROM employee WHERE employee_name = '$employee_name' AND employee_store = '$employee_store'";
-  $employee_ns_result = mysqli_query($conn, $employee_ns_sql);
+  $name_sql = "SELECT employee_id FROM employee WHERE employee_name = '$employee_name'";
+  $name_result = mysqli_query($conn, $name_sql);
   
-  if(mysqli_num_rows($employee_ns_result) > 0) {
-    echo "該 employee 已註冊過";
-    echo '<br>';
-    echo 'employee has already been registered';
+  if(mysqli_num_rows($name_result) > 0) {
+      header("Location: ./register.php?error=employee_name_repeat");
   }
   if(mysqli_num_rows($employee_ns_result) === 0) {
     $sql = "INSERT INTO employee (employee_name, employee_store, employee_pw)
     VALUES ('$employee_name', '$employee_store', '$employee_pw')";
     if (mysqli_query($conn, $sql)) {
-      echo "員工新增成功";
+      header("Location: ./login.php?register_success");
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }  
