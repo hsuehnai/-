@@ -10,11 +10,37 @@
   	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-	</head>
-	<?php
-		session_start();
-	?>
+	<script>
+            window.onload = function(){
+                if(('<?=$_SERVER['QUERY_STRING']?>')==='error=employee_name_repeat')
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '此員工名稱已被註冊過',
+			text: '請確認員工名稱是否輸入錯誤或是更改成其他員工名稱',
+                    })
+                }
+                else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=customer_email_repeat')
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '此電子郵件已被註冊過',
+			text: '請確認電子郵件是否輸入錯誤或是更改成其它電子郵件',
+                    })
+                }
+		else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=customer_phone_repeat')
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '此電話號碼已被註冊過',
+			text: '請確認電話號碼是否輸入錯誤或是更改成其它電話號碼',
+                    })
+                }
 
+            }
+        </script>
+	</head>
+	
 	<body>
 	<div class="jumbotron text-left" style="margin-bottom:0" >
   	<h5><small>歡迎加入超貴的健康飲食餐館</small></h5>
@@ -49,56 +75,36 @@
         </form>
     </div>
 </body>
-</html>
+
 
 <script>
-    $("#form").submit(function(e) {
-        if ($("#employee_pw").val() !== $("#employee_pw2").val()) {
+    function validateForm() {
+        var a = document.forms["form"]["password"].value;
+        var b = document.forms["form"]["password2"].value;
+        if(a.length<4){
             Swal.fire({
                 icon: 'warning',
-                title: '請再確認一次密碼！',
-                text: 'Please confirm the password again !',
-            });
-            return;
-        } else {
-            var params = {
-                employee_name: $('#employee_name').val(),
-                employee_store: $('#employee_store').val(),
-                employee_pw: ($('#employee_pw').val()),
-            };
-            var query = jQuery.param(params);
-            var form = $(this);
-            var url = form.attr('action');
-            $.ajax({
-                type: "GET",
-                url: url + '?' + query,
-                success: function(data) {
-                    if (data.includes('已註冊過')) {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: '請重新輸入資料！',
-                            html: 'Please re-enter the data! <br><br>' + data,
-                        });
-                    }
-                    if (data.includes('員工新增成功')) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '員工新增成功！',
-                            text: 'Employee Inserted Successfully !',
-                            allowOutsideClick: false,
-                            showCancelButton: false,
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location = './login.php'
-                            }
-                        })
-                    }
-                }
-            });
-            e.preventDefault(); // avoid to execute the actual submit of the form.
+                title: '密碼長度不足',
+                text: '請輸入4個字元以上的密碼',
+            })
+            return false;
         }
-    });
+        else if (a != b) {
+            Swal.fire({
+                icon: 'error',
+                title: '密碼錯誤',
+                text: '請確認兩次密碼是否輸入相同',
+            })
+            return false;
+        }
+        else {
+            var e_pw = document.getElementById('employee_pw');
+            e_pw.value=e_pw.value.MD5();
+            return true;
+        }
+    }
 </script>
+
 	</div>
 
 	<div id="customer" class="container tab-pane fade"><br>
@@ -142,7 +148,17 @@
 			<div class="mb-3">
                             <label for="email" class="form-label"><b>請輸入密碼</b></label>
                             <input 
-                            id="pw" 
+                            id="pw1" 
+                            type="password" 
+                            name="pw"
+                            class="form-control" 
+                            required=""
+                            >
+                        </div>
+			<div class="mb-3">
+                            <label for="email" class="form-label"><b>請確認密碼</b></label>
+                            <input 
+                            id="pw2" 
                             type="password" 
                             name="pw"
                             class="form-control" 
@@ -159,45 +175,34 @@
         </div>
     </div>
 
-    <script>
-    $("#form").submit(function(e) {
-        var params = {
-            username: $('#username').val(),
-            phone: $('#phone').val(),
-            email: $('#email').val(),
-        };
-        var query = jQuery.param(params);
-        var form = $(this);
-        var url = form.attr('action');
-        $.ajax({
-            type: "POST",
-            url: url + '?' + query,
-            success: function(data) {
-                if (data.includes('已註冊過')) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Oops...',
-                        html:data,
-                    });
-                }
-                if (data.includes('客戶新增成功')) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'OK',
-                        text: '客戶新增成功',
-                        allowOutsideClick: false,
-                        showCancelButton: false,
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location = './login.php'; 
-                        }
-                    });
-                }
-            }
-        });
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-    });
-    </script>
+<script>
+    function validateForm() {
+        var w = document.forms["form"]["pw1"].value;
+        var z = document.forms["form"]["pw2"].value;
+        if(w.length<4){
+            Swal.fire({
+                icon: 'warning',
+                title: '密碼長度不足',
+                text: '請輸入4個字元以上的密碼',
+            })
+            return false;
+        }
+        else if (w != z) {
+            Swal.fire({
+                icon: 'error',
+                title: '密碼錯誤',
+                text: '請確認兩次密碼是否輸入相同',
+            })
+            return false;
+        }
+        else {
+            var c_pw = document.getElementById('cust_pw');
+            c_pw.value=c_pw.value.MD5();
+            return true;
+        }
+    }
+</script>
+
 	</div>
 	</div>
 
