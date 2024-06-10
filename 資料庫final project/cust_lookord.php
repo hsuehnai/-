@@ -1,5 +1,3 @@
-// 需要建立商品資料庫:food table-> order_id, food1_num(初始值=0), food2_num(初始值=0), food3_num(初始值=0), food4_num(初始值=0)
-// 將orders table內的order_num刪掉
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,42 +61,57 @@
     }
     echo "<h1><strong>$cust_name 的訂單</strong></h1>";
 
-    $order = "SELECT order_id,order_store,order_date,order_finish FROM orders WHERE order_cust='$username'" AND "SELECT order_id,food1_num,food2_num,food3_num,food4_num FROM food"; //取得該客戶訂單
+    $order = "SELECT order_id,order_store,order_date,order_chic,order_fish,order_pork,order_beef,order_spoon,order_finish FROM orders WHERE order_cust='$username'"; //取得該客戶訂單
     $order_result = mysqli_query($conn, $order);
     if (mysqli_num_rows($order_result) > 0) {
         /*
-        echo "訂單編號，分店編號，商品一訂購數量，商品二訂購數量，商品三訂購數量，商品四訂購數量，訂單日期，訂單狀態<br>";
+        echo "訂單編號，分店編號，照燒雞胸肉訂購數量，薄鹽鯖魚訂購數量，泡菜豬里肌訂購數量，日式壽喜牛訂購數量，訂單日期，訂單狀態<br>";
         while($row = $order_result->fetch_assoc()) {
-            echo "{$row["order_id"]},{$row["order_store"]},{$row['food1_num']},{$row['food2_num']},{$row['food3_num']},{$row['food4_num']},{$row["order_date"]},{$row['order_finish']}";
+            echo "{$row["order_id"]},{$row["order_store"]},{$row['order_chic']},{$row['order_fish']},{$row['order_pork']},{$row['beef']},{$row["order_date"]},{$row['order_spoon']},{$row['order_finish']}";
+	    //顯示是否需要免洗餐具
+	    if ($row['order_spoon'] == '0') {
+            	echo "不需要";
+            } 
+            else {
+            	echo "需要";
+            }
+
             //顯示完成訂單或未完成
             if ($row['order_finish'] == '0') {
                 echo "訂單尚未完成";
             } 
-            else {//已完成訂單
+            else {
                 echo "已完成訂單";
             }
             echo "<br>";
         }
         */
-        if ($row['order_finish'] == '0') {
-            $row['order_finish'] == "訂單尚未完成";
-        } 
-        else {
-            $row['order_finish'] == "已完成訂單";
-        }
-
         echo "<table border='1'>";
-        echo "<tr><th>訂單編號</th><th>分店編號</th><th>商品一訂購數量</th><th>商品二訂購數量</th><th>商品三訂購數量</th><th>商品四訂購數量</th><th>訂單日期</th><th>訂單狀態</th></tr>";
+        echo "<tr><th>訂單編號</th><th>分店編號</th><th>照燒雞胸肉訂購數量</th><th>薄鹽鯖魚訂購數量</th><th>泡菜豬里肌訂購數量</th><th>日式壽喜牛訂購數量</th><th>免洗餐具</th><th>訂單日期</th><th>訂單狀態</th></tr>";
         while ($row = $order_result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>{$row['order_id']}</td>";
             echo "<td>{$row['order_store']}</td>";
-            echo "<td>{$row['food1_num']}</td>";
-	          echo "<td>{$row['food2_num']}</td>";
-	          echo "<td>{$row['food3_num']}</td>";
-	          echo "<td>{$row['food4_num']}</td>";
+            echo "<td>{$row['order_chic']}</td>";
+	    echo "<td>{$row['order_fish']}</td>";
+	    echo "<td>{$row['order_pork']}</td>";
+	    echo "<td>{$row['order_beef']}</td>";
+	    echo "<td id='status-{$row['order_id']}'}>";
+	    if ($row['order_spoon'] == '0') {
+            	echo "不需要";
+            } 
+            else {
+            	echo "需要";
+            }
+            echo "</td>";
             echo "<td>{$row['order_date']}</td>";
-	          echo "<td>{$row['order_finish']}</td>";
+	    echo "<td id='status-{$row['order_id']}'>";
+	    if ($row['order_finish'] == '0') {
+            	echo "訂單尚未完成";
+            } 
+            else {
+            	echo "已完成訂單";
+            }
             echo "</td>";
             echo "</tr>";
         }
