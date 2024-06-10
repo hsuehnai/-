@@ -28,7 +28,6 @@ function checkData($employee_name, $employee_pw, $conn) {
     echo "登入成功";
     $_SESSION['employee_name'] = $row['employee_name'];
     $_SESSION['employee_pw'] = $row['employee_pw'];
-    $_SESSION['employee_store'] = $row['employee_store'];
     header("Location: ./home.php");
     }
     }
