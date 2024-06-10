@@ -1,5 +1,3 @@
-//注意 客戶登入需要新增資料庫裡的customer table 增加名目：cust_pw
-// 員工登入連上的是原本的home.php，而客戶登入需連上新的客戶主頁（但還沒建
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,12 +10,48 @@
   	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+            window.onload = function(){
+                if(('<?=$_SERVER['QUERY_STRING']?>')==='error=no_employee_name')
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '查無此員工，請檢查有無錯別字或註冊新帳號',
+                    })
+                }
+                else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=wrong_employee_pw')
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '員工密碼錯誤',
+                    })
+                }
+		else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=no_cust_name')
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '查無此客戶，請檢查有無錯別字或註冊新帳號',
+                    })
+                }
+                else if(('<?=$_SERVER['QUERY_STRING']?>')==='error=wrong_cust_pw')
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '客戶密碼錯誤',
+                    })
+                }
 
+                else if(('<?=$_SERVER['QUERY_STRING']?>')==='register_success')
+                {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '註冊成功!請重新登入',
+                    })
+                }
+            }
+        </script>
 	</head>
-	<?php
-		session_start();
-	?>
-
+	
 	<body>
 	<div class="jumbotron text-left" style="margin-bottom:0" >
   	<h5><small>歡迎來到超貴的健康飲食餐館</small></h5>
@@ -40,7 +74,6 @@
 		session_start();
 		unset($_SESSION['employee_name']);
 		unset($_SESSION['employee_pw']);
-		unset($_SESSION['employee_store']);
 	?>
     	<div class="container">
         	<div class="row justify-content-center">
@@ -49,9 +82,6 @@
                     		<form id="form" class="form-signin" method="get" action="./employee_login_check.php">
                         		<div class="mb-3">
                             			<input name="employee_name" type="text" class="form-control" placeholder="請輸入員工姓名" required="">
-                        		</div>
-                        		<div class="mb-3">
-                            			<input name="employee_store" type="text" class="form-control" placeholder="請輸入分店代號" required="">
                         		</div>
                         		<div class="mb-3">
                             			<input name="employee_pw" type="password" class="form-control" placeholder="請輸入員工密碼" required="">
