@@ -7,7 +7,12 @@
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-  	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  	<script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"
+    ></script> <!--jQuery-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script><!--SweetAlart-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
       <style>
@@ -154,6 +159,20 @@
 	
 
 <script>
+    document.addEventListener('DOMContentLoaded', (e) => {
+        const form_e = document.getElementById('form_employee');
+        const form_c = document.getElementById('form_customer');
+        form_e.addEventListener('submit', function(e) {
+            if (!validateFormE()) {
+                e.preventDefault(); // 攔截表單
+            }
+        });
+        form_c.addEventListener('submit', function(e) {
+            if (!validateFormC()) {
+                e.preventDefault(); // 攔截表單
+            }
+        });
+    });
     function validateFormE() { //確認employee
         var a = document.forms["form_employee"]["employee_pw"].value;
         var b = document.forms["form_employee"]["employee_pw2"].value;
@@ -174,13 +193,9 @@
             return false;
         }
         else {
-            //var e_pw = document.getElementById('employee_pw');
-            //e_pw.value=e_pw.value.MD5();
-            //document.getElementById('form_employee').submit();
             return true;
         }
     }
-
     function validateFormC() { //確認customer
         var w = document.forms["form_customer"]["pw1"].value;
         var z = document.forms["form_customer"]["pw2"].value;
@@ -201,13 +216,9 @@
             return false;
         }
         else {
-            //var c_pw = document.getElementById('cust_pw');
-            //c_pw.value=c_pw.value.MD5();
-            //document.getElementById('form_customer').submit();
             return true;
         }
     }
-    
     window.onload = function(){
         if(('<?=$_SERVER['QUERY_STRING']?>')==='error=employee_name_repeat')
         {
