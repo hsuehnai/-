@@ -7,8 +7,11 @@
   <title>訂單 Place order</title>
   <?php 
     require_once dirname(__FILE__)."/db_check.php";
-		session_start();
-		echo "Hello,  " . $_SESSION['cust_name'] . "! " . "😄"; /////////////確認顯示當前登入客戶名稱
+		session_start();?>
+    <div id="hello_message" style="background-color: #FFB6C1; padding: 10px; margin-bottom: 20px;">
+      <?php echo "Hello,  " . $_SESSION['cust_name'] . "! " . "😄"; ?><!--確認顯示當前登入客戶名稱-->
+</div>
+    <?php 
     $conn = db_check();
   ?>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -23,17 +26,30 @@
       height: 100vh;
       margin: 0;
       font-family: Arial, sans-serif;
+      flex-direction: row; /* Display in a row */
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
     }
     form {
-      text-align: center;
+      text-align: left; /* Align text to the left */
       padding-right: 20px; /* Add padding to the right side of the form */
+      background-color: #FFFFE0; /* Light yellow background color */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     h1 {
       border: none; /* Remove border around text */
       padding: 10px; /* Add padding inside the border */
-      text-align: left; /* Align text to the left */
+      text-align: center; /* Center the text */
     }
     button {
+      margin: 20px auto; /* 將按鈕置中 */
+      display: block; /* 將按鈕設置為區塊級元素 */
       margin-top: 20px;
       width: 120px; /* Adjust the width as needed */
       height: 80px; /* Adjust the height as needed */
@@ -41,105 +57,139 @@
       font-size: 20px; /* Increase font size */
       background-color: #FFFF99; /* Light yellow background color */
     }
-    #back_button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
+    .modal-content {
+      background-color: #FFFFE0; /* Light yellow background color */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+    #form p {
+      text-align: left; /* Align text to the left */
+    }
+    #back_button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #FFB6C1;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  text-decoration: none;
+  color: black;
+  }
+  #hello_message {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px; /* 調整字體大小 */
+}
+#confirm, #cancel {
+  display: inline-block; /* 讓按鈕並排 */
+  margin-right: 10px; /* 添加右邊距以分隔按鈕 */
+}
+#orderDetailsModal {
+  margin-top: 80px; /* 調整方框的上邊距 */
+}
+
   </style>
 </head>
 <body>
-  <h1>請輸入訂單資料！ <br> Please insert data to place order!</h1>
-  <a href="./cushome.php"   id="back_button">回上頁</a>
-  <form 
-    id="form"
-    method="get"
-    onsubmit="return false"
-    action="./order_check.php"
-  >
-    <div>
-      <p id="odate_input"><b>請選擇取餐日期</b></p>
-      <input 
-        id="o_date"
-        type="date"
-        class="input"
-        required=""
-      >
-    </div>
-    <div>
-      <p id="ostore_input"><b>請選擇要取餐的分店</b></p>
-      <select id="o_store" class="input" required>
-        <option value="" disabled selected>請選擇分店</option>
-        <option value="1">交大店</option>
-        <option value="2">新竹店</option>
-        <option value="3">台北店</option>
-        <option value="4">綠島店</option>
-        <option value="5">南投店</option>
-      </select>
-    </div>
-    <div>
-      <p id="onum_input"><b>請輸入照燒雞胸餐盒數量</b></p>
-      <input 
-        id="c_num"
-        type="text"
-        class="input"
-        placeholder="Order Quantity"
-        required=""
-      >
-    </div>
-    <div>
-      <p id="onum_input"><b>請輸入薄鹽鯖魚餐盒數量</b></p>
-      <input 
-        id="f_num"
-        type="text"
-        class="input"
-        placeholder="Order Quantity"
-        required=""
-      >
-    </div>
-    <div>
-      <p id="onum_input"><b>請輸入泡菜豬里肌餐盒數量</b></p>
-      <input 
-        id="p_num"
-        type="text"
-        class="input"
-        placeholder="Order Quantity"
-        required=""
-      >
-    </div>
-    <div>
-      <p id="onum_input"><b>請輸入日式壽喜牛餐盒數量</b></p>
-      <input 
-        id="b_num"
-        type="text"
-        class="input"
-        placeholder="Order Quantity"
-        required=""
-      >
-    </div>
-    <div>
-      <input type="checkbox" id="spoon">
-      <label for="spoon">需要免洗餐具</label>
-    </div>
-    <button value="Order" type="submit"><b>下單 Order</b></button>
-  </form>
+  <div class="container">
+    <h1>請輸入訂單資料！ <br> Please insert data to place order!</h1>
+    <a href="./cushome.php" id="back_button">回上頁</a>
+    <form 
+      id="form"
+      method="get"
+      onsubmit="return false"
+      action="./order_check.php"
+    >
+      <div>
+        <p id="odate_input"><b>請選擇取餐日期</b></p>
+        <input 
+          id="o_date"
+          type="date"
+          class="input"
+          required=""
+        >
+      </div>
+      <div>
+        <p id="ostore_input"><b>請選擇要取餐的分店</b></p>
+        <select id="o_store" class="input" required>
+          <option value="" disabled selected>請選擇分店</option>
+          <option value="1">交大店</option>
+          <option value="2">新竹店</option>
+          <option value="3">台北店</option>
+          <option value="4">綠島店</option>
+          <option value="5">南投店</option>
+        </select>
+      </div>
+      <div>
+        <p id="onum_input"><b>請輸入照燒雞胸餐盒數量(100元/每份)</b></p>
+        <input 
+          id="c_num"
+          type="text"
+          class="input"
+          placeholder="Order Quantity"
+          required=""
+        >
+      </div>
+      <div>
+        <p id="onum_input"><b>請輸入薄鹽鯖魚餐盒數量(120元/每份)</b></p>
+        <input 
+          id="f_num"
+          type="text"
+          class="input"
+          placeholder="Order Quantity"
+          required=""
+        >
+      </div>
+      <div>
+        <p id="onum_input"><b>請輸入泡菜豬里肌餐盒數量(120元/每份)</b></p>
+        <input 
+          id="p_num"
+          type="text"
+          class="input"
+          placeholder="Order Quantity"
+          required=""
+        >
+      </div>
+      <div>
+        <p id="onum_input"><b>請輸入日式壽喜牛餐盒數量(150元/每份)</b></p>
+        <input 
+          id="b_num"
+          type="text"
+          class="input"
+          placeholder="Order Quantity"
+          required=""
+        >
+      </div>
+      <div>
+        <input type="checkbox" id="spoon">
+        <label for="spoon">需要免洗餐具</label>
+      </div>
+      <button value="Order" type="submit"><b>下單 Order</b></button>
+    </form>
+  </div>
 
-  <form id="orderDetailsModal" style="display: none;">
-    <div>
-      <h2>訂單明細 Order Details</h2>
-      <p id="modal_date"></p>
-      <p id="modal_store"></p>
-      <p id="modal_c_num"></p>
-      <p id="modal_f_num"></p>
-      <p id="modal_p_num"></p>
-      <p id="modal_b_num"></p>
-      <p id="modal_spoon"></p>
-      <p id="modal_total_quantity"></p>
-      <p id="modal_total_price"></p>
-      <button id="confirm" type="submit">確認 Confirm</button>
-      <button id="cancel" type="button" onclick="closeModal(e)">取消 Cancel</button>
-    </div>
-  </form>
+  <div class="container">
+    <form id="orderDetailsModal" style="display: none;">
+      
+        <h2>訂單明細 Order Details</h2>
+        <p id="modal_date"></p>
+        <p id="modal_store"></p>
+        <p id="modal_c_num"></p>
+        <p id="modal_f_num"></p>
+        <p id="modal_p_num"></p>
+        <p id="modal_b_num"></p>
+        <p id="modal_spoon"></p>
+        <p id="modal_total_quantity"></p>
+        <p id="modal_total_price"></p>
+        <button id="confirm" type="submit">確認 Confirm</button>
+        <button id="cancel" type="button" onclick="closeModal(e)">取消 Cancel</button>
+      
+    </form>
+  </div>
 
 </body>
 <script>
@@ -219,8 +269,6 @@ document.getElementById('form').addEventListener('submit', showOrderDetails);
           }
         }
       });
-    //alert("訂單已確認！");
-      //document.getElementById('form').submit(); // This will submit the form
     }
 </script>
 </html>
