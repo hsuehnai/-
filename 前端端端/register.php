@@ -247,7 +247,10 @@
   		});
 	});
 </script>
-<div class="jumbotron text-center bottom-jumbotron d-flex align-items-center justify-content-center" style="margin-bottom:0">
+<div class="jumbotron text-center bottom-jumbotron d-flex flex-column align-items-center justify-content-center" style="margin-bottom:0;">
+    <div>
+        <h5>請在左上角選擇您的身份進行註冊</h5>
+    </div>
   	<h5>已經註冊過了嗎?</h5>
 	<button class="btn btn-outline-black btn-lg register-btn" style="background-color: #244f24;" type="button" onclick="window.location = './login.php'"><b>點此登入 Login</b></button>
 	</div>
