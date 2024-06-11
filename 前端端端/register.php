@@ -82,10 +82,10 @@
 
 	<ul class="nav nav-tabs">
     		<li class="nav-item">
-      		<a class="nav-link" href="#employee">我是員工</a>
+      		<a class="nav-link" href="#employee">我是新員工</a>
     		</li>
     		<li class="nav-item">
-      		<a class="nav-link" href="#customer">我是顧客</a>
+      		<a class="nav-link" href="#customer">我是新顧客</a>
     		</li>
   	</ul>
 	
