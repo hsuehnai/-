@@ -8,8 +8,6 @@
 require_once dirname(__FILE__)."/db_check.php";
 session_start();
 $conn = db_check();
-echo "<h2><strong>Hello,  " . $_SESSION['employee_name'] . "! 😄</strong></h2>";
-echo "<br><br>"; // 添加一行空白
 $e_store = $_SESSION['employee_store'];
 $sname = "SELECT store_name FROM store WHERE store_id = '$e_store'";
 $sresult = mysqli_query($conn, $sname);
@@ -17,14 +15,20 @@ if(mysqli_num_rows($sresult) > 0) {
     $row = $sresult->fetch_assoc();
     $sname = $row["store_name"];
 }
-echo "<h2 style='font-size: 16px;'><strong>分店：" . $sname . "</strong></h2>"; // 設置字體大小
-
 $conn->close();
 ?>
 
 <body>
-    <div class="container">
+<div class="container">
+    <div class="content">
+        <h2 style="margin-top: -170px;"><strong>Hello, <?php echo $_SESSION['employee_name']; ?>! 😄</strong></h2>
+        <br><br>
+        <h2 style="font-size: 24px; margin-top: -20px; margin-right: 50px;"><strong>您的分店：<?php echo $sname; ?></strong></h2>
+    </div>
+    
+    <div class="side-content">
         <img src="雞胸餐盒.jpg" alt="Logo">
+        
         <div class="buttons">
             <button type="button" id="B5" onclick="window.location ='./login.php'" style="background-color: pink; width: 150px; padding: 8px; border: none; color: black;">登出 <br> Logout</button>
             <!--<button type="button" id="B1" onclick="window.location ='./custreg.php'">新增會員（顧客）資料 <br> Add New Customer</button>-->
@@ -33,6 +37,7 @@ $conn->close();
             <button type="button" id="B4" onclick="window.location ='./checkrev.php'">查看分店營業額 <br> Store's Revenue</button>
         </div>
     </div>
+</div>
 </body>
 <style>
     body {
@@ -48,9 +53,19 @@ $conn->close();
     .container {
         text-align: center;
         display: flex;
-        flex-direction: column;
+        flex-direction: row; /* 將內容水平排列 */
         align-items: center;
         justify-content: center; /* 將內容垂直置中 */
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .side-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .buttons {
@@ -86,3 +101,4 @@ $conn->close();
     }
 </style>
 </html>
+
