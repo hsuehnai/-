@@ -74,14 +74,7 @@
         $store_name = $store_row['store_name'];
     }
     echo "<h1><strong>$store_name 訂單</strong></h1>";
-    ?>
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-        <!-- 空白 div 來填充右邊的空間 -->
-        <div></div>
-        <button onclick="window.location='./home.php'">回首頁</button>
-    </div>
-    
-    <?php
+    echo '<button onclick="window.location=\'./home.php\'">回首頁</button>';
     //取得該分店訂單
     //$order = "SELECT order_id,order_cust,order_num,order_date,order_finish FROM orders WHERE order_store='$store'";
     $order = "
@@ -90,7 +83,9 @@
         c.cust_name,
         o.order_num,
         o.order_date,
-        o.order_finish 
+        o.order_finish,
+        o.point_flag,
+        o.order_point
     FROM orders o
     JOIN customer c ON o.order_cust = c.cust_id
     WHERE o.order_store='$store'
@@ -113,7 +108,7 @@
         */
         
         echo "<table border='1'>";
-        echo "<tr><th>訂單編號</th><th>會員編號</th><th>訂購數量</th><th>訂單日期</th><th>訂單狀態</th></tr>";
+        echo "<tr><th>訂單編號</th><th>會員姓名</th><th>訂購數量</th><th>訂單日期</th><th>訂單狀態</th><th>訂單評分</th></tr>";
         while ($row = $order_result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>{$row['order_id']}</td>";
@@ -126,6 +121,18 @@
             } 
             else {
                 echo "已完成訂單";
+            }
+            echo "</td>";
+            echo "<td>";
+            if ($row['point_flag'] == '0') {
+                echo "尚未評分";
+            } 
+            else {
+                if ($row['order_point'] == 5) echo "⭐⭐⭐⭐⭐";
+                if ($row['order_point'] == 4) echo "⭐⭐⭐⭐";
+                if ($row['order_point'] == 3) echo "⭐⭐⭐";
+                if ($row['order_point'] == 2) echo "⭐⭐";
+                if ($row['order_point'] == 1) echo "⭐";
             }
             echo "</td>";
             echo "</tr>";
