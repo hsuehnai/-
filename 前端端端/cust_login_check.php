@@ -23,7 +23,7 @@ function checkData($cust_name, $cust_pw, $conn) {
       $result = mysqli_query($conn, $sql);
       if(mysqli_num_rows($result) == 0) {
         echo "密碼錯誤";
-        header("Location: ./login.php?error=wrong_cust_pwd");   
+        header("Location: ./login.php?error=wrong_cust_pw");//這裡
       }
       else {
         $row = mysqli_fetch_assoc($result);
@@ -31,7 +31,7 @@ function checkData($cust_name, $cust_pw, $conn) {
         $_SESSION['cust_name'] = $row['cust_name'];
         $_SESSION['cust_id'] = $row['cust_id'];
         //$_SESSION['cust_pw'] = $row['cust_pw'];
-        header("Location: ./cushome.php");
+        header("Location: ./cushome.php?login_success"); //這裡
       }
     }
 }
