@@ -206,9 +206,17 @@
 	});
 	</script>
 
-<div class="jumbotron text-center bottom-jumbotron d-flex align-items-center justify-content-center" style="margin-bottom:0;">
-    <h5>還沒註冊過嗎?</h5>
-    <button class="btn btn-outline-black btn-lg register-btn" type="button" onclick="window.location = './register.php'"><b>點此註冊 Register</b></button>
+<div class="jumbotron text-center bottom-jumbotron d-flex flex-column align-items-center justify-content-center" style="margin-bottom:0;">
+    <div>
+        <h5>請在左上角選擇您的身份進行登入</h5>
+    </div>
+    <div>
+        <h5>還沒註冊過嗎?</h5>
+    </div>
+    <div>
+        <button class="btn btn-outline-black btn-lg register-btn" type="button" onclick="window.location = './register.php'"><b>點此註冊 Register</b></button>
+    </div>
+</div>
 </div>
 
 </body>
