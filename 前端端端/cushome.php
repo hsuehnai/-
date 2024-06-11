@@ -22,6 +22,7 @@ $conn = db_check();
         <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;"> <!-- 添加 margin-top -->
             <button type="button" id="B6" onclick="window.location ='./menu.php'" style="width: 250px; padding: 12px; border: 2px solid #ccc; background-color: white; font-weight: bold;">輸入訂單 <br> Place Order</button>
             <button type="button" id="B7" onclick="window.location ='./getcustomer.php'" style="width: 250px; padding: 12px; border: 2px solid #ccc; background-color: white; font-weight: bold;">確認訂單狀態 <br> Track Order</button> <!--檔案名稱改成確認訂單網頁-->
+            <button type="button" id="B9" onclick="window.location ='./another-page.php'" style="width: 250px; padding: 12px; border: 2px solid #ccc; background-color: white; font-weight: bold;">其他按鈕 <br> Another Button</button>
         </div>
     </div>
 </body>
