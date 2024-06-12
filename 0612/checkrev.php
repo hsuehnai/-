@@ -21,6 +21,22 @@ function storerev($conn) {
     $srev = $row['store_revenue'];
   }
 
+  //取得該分店訂單與訂單評分
+  $order_query = "SELECT point_flag,order_point FROM orders WHERE order_store='$e_store' AND point_flag='1'";
+  $order_result = mysqli_query($conn, $order_query);
+
+  if(mysqli_num_rows($order_result) > 0) {
+    $total_ratings = 0;
+    $num_orders = 0;
+    while ($row = mysqli_fetch_assoc($order_result)) {
+      if ($row['order_point'] !== 0) {
+        $total_ratings += $row['order_point'];
+        $num_orders++;
+      }
+    }
+    $average_rating = $num_orders > 0 ? ($total_ratings / $num_orders) : 0;
+  }
+
   echo '<div class="centered">';
   echo "<h1>$sname 營業額</h1><br>";
   echo '<table class="sales-table">';
@@ -31,6 +47,7 @@ function storerev($conn) {
   echo "<tr class='highlight'><td class='total-sales'>" . $sname . "賣出餐盒總數量</td><td class='large-text total-sales'>" . $snum . "</td></tr>";
   echo '</table>';
   echo "<p class='total-revenue'><b>=></b> " . $sname . "總營業額：" . $srev . "</p><br>";
+  echo "<p id='rank'>分店評分：" . $average_rating . "</p><br><br>";
   echo '<button class="home-btn" onclick="window.location=\'./home.php\'">回首頁</button>'; // 修改此處加上 class 和修改字體大小的 style
   echo '</div>';
 }
@@ -67,6 +84,7 @@ body {
 .total-revenue {
   font-size: 2em; /* 放大字體 */
   font-weight: bold; /* 加粗字體 */
+  margin: 0;
 }
 .total-sales {
   font-size: 1.5em; /* 放大字體 */
@@ -80,5 +98,11 @@ body {
   color: #000; /* 黑色字體 */
   border: 1px solid #000; /* 黑色邊框 */
   border-radius: 10px; /* 圓角 */
+}
+#rank{
+  display: center;
+  font-size: 2em; /* 放大字體 */
+  font-weight: bold; /* 加粗字體 */
+  margin: 0;
 }
 </style>
